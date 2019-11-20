@@ -1,17 +1,31 @@
+baseurl: ""
 url: "https://pgu.dev"
 
-markdown: kramdown
-remote_theme: thelehhman/texture
-plugins:
-  - jekyll-feed
+theme_settings :
+  title : Paulius Gudonis
 
-texture:
-  title: Paulius Gudonis
-  tagline: Software developer
-  style: [black]
-  date_format: "%b %-d, %Y"
+  profile :
+    image : assets/img/me.jpg
+    username : Paulius Gudonis
 
-  social_links:
+  icons :
+    email: paulius.gudonis.92@gmail.com
+    linkedin: https://linkedin.com/in/pauliusgudonis
+    github: nakkht
+    gitlab: 
+    bitbucket: 
+    google_plus:
     twitter: nakkht
-    github:  nakkht
-    linkedIn: in/pauliusgudonis
+    youtube:
+    facebook:
+    instagram:
+
+paginate: 5
+paginate_path: "blog/page:num"
+
+sass:
+  sass_dir: _sass
+  style: :compressed
+gems: [jekyll-paginate]
+bootstrap:
+  assets: true
