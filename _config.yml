@@ -7,6 +7,7 @@ theme_settings :
   profile :
     image : assets/img/me.jpg
     username : Paulius Gudonis
+    description: Software Developer, Architect
 
   icons :
     email: paulius.gudonis.92@gmail.com
