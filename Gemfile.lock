@@ -232,9 +232,6 @@ GEM
       faraday (> 0.8, < 2.0)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
-    texture (0.3)
-      jekyll (~> 3.7)
-      jekyll-seo-tag (~> 2.1)
     thread_safe (0.3.6)
     typhoeus (1.3.1)
       ethon (>= 0.9.0)
@@ -246,8 +243,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  github-pages (~> 202)
-  texture
+  github-pages
+  jekyll-paginate
 
 BUNDLED WITH
    2.0.2
