@@ -1,25 +1,26 @@
 baseurl: ""
 url: "https://pgu.dev"
 
-theme_settings :
-  title : Paulius Gudonis
+theme_settings:
+  title: Paulius Gudonis
 
-  profile :
-    image : assets/img/me.jpg
-    username : Paulius Gudonis
+  profile:
+    image: assets/img/me.jpg
+    username: Paulius Gudonis
     description: Software Developer, Architect
 
-  icons :
+    skills: 
+        - skill: Android / iOS, Java, Kotlin, Swift, Objective-C, Python, Go, Rust, C#, Git, ASP.NET Core, Docker
+        - skill: MVP, MVVM-C, MVC, Git flow, Unit testing, Continuous Integration / Delivery
+
+    experience:
+        - 
+     
+  icons:
     email: paulius.gudonis.92@gmail.com
     linkedin: https://linkedin.com/in/pauliusgudonis
     github: nakkht
-    gitlab: 
-    bitbucket: 
-    google_plus:
     twitter: nakkht
-    youtube:
-    facebook:
-    instagram:
 
 paginate: 5
 paginate_path: "blog/page:num"
@@ -27,6 +28,6 @@ paginate_path: "blog/page:num"
 sass:
   sass_dir: _sass
   style: :compressed
-gems: [jekyll-paginate]
+plugins: [jekyll-paginate]
 bootstrap:
   assets: true
