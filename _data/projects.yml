@@ -1,0 +1,13 @@
+- project:
+    print: true
+    modal: false
+    url: https://github.com/nakkht/logr
+    title: logr
+    summary: Logging libray for iOS in swift
+
+- project:
+    print: true
+    modal: false
+    url: https://github.com/neqsoft/reso
+    title: reso
+    summary: Android application for monitoring and providing all information related to the device.
