@@ -14,17 +14,6 @@
     {% include icons.html %}
   </ul>
 </div>
-<!-- Tag Navigation -->
-<div id="tag-wrap">
-  <a href="{{ site.url }}/tags">
-    <p class="title">TAGS</p>
-  </a>
-  {% for tag in site.tags %}
-  <a href="{{site.baseurl}}/tags#{{ tag | first | cgi_encode }}">
-    <span class="tag">{{ tag | first }}</span>
-  </a>
-  {% endfor %}
-</div>
 <!-- Project -->
 <div id="proj-wrap">
   <a href="{{ site.url }}/portfolio#projects">
