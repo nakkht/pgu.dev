@@ -14,10 +14,25 @@ theme_settings:
         - skill: MVP, MVVM-C, MVC, Git flow, Unit testing, Continuous Integration / Delivery
 
     experience:
-        - 
+
+        - start: 2019-06
+          end: Present
+          experience: Saphe A/S, App Developer
+
+        - start: 2018-10
+          end: Present
+          experience: neqsoft, Owner/Freelancer
+
+        - start: 2016-01
+          end: 2019-05
+          experience: Medei ApS, Lead Software Developer
+
+        - start: 2014-11
+          end: 2015-10
+          experience: Internet Chess Club, Software Developer
      
   icons:
-    email: paulius.gudonis.92@gmail.com
+    email: pg@neqsoft.com
     linkedin: https://linkedin.com/in/pauliusgudonis
     github: nakkht
     twitter: nakkht
