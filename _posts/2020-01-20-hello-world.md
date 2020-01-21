@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Hello, World!
-subtitle: Tech-focused tech blog
+subtitle: Tech-focused blog
 author: Paulius Gudonis
 ---
 
