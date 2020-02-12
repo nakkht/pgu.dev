@@ -21,7 +21,7 @@ layout: default
       <div class="post">
           <div class="post-wrap">
             <div class="text-warp">
-              <a href="{{ post.url | relative_url }}"> <h4 class="title">{{ post.title }}</h4></a>
+              <a href="{{ post.url | relative_url }}"> <h3 class="title">{{ post.title }}</h3></a>
               <p class="excerpt">
                 {% if post.excerpt.size > 50 %}
                 {{ post.excerpt | strip_html | strip_newlines | truncatewords: 25, '...' }}
