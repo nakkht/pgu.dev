@@ -34,12 +34,9 @@
               <a href="{{ url }}/subscription"><i class="far fa-eye"></i></a>
               <a href="{{ url }}/fork"><i class="fas fa-code-branch"></i></a>
               {% endif %}
-              {% if project.modal %}
-              <a title="{{ id }}" onClick="open_modal(this.title)" class="modal-btn"><i class="fas fa-plus"></i></a>
-              {% endif %}
             </div>
-          </a>
-        </div>
+          </div>
+        </a>
       </div>
       {% endfor %}
     </div>
