@@ -46,12 +46,6 @@
                     .title {
                         position: relative;
                         line-height: 2rem;
-                        &:hover {
-                            color: $theme-color;
-                            &::before {
-                                background-color: $theme-color;
-                            }
-                        }
                     }
                     .title::before {
                         content: "";
@@ -69,6 +63,16 @@
                         color : $text-gray;
                         font-size: 0.85rem;
                         margin-right : 10px;
+                    }
+                }
+                &:hover {
+                    .text-warp {
+                        .title {
+                            color: $theme-color;
+                        }
+                        .title::before {
+                            background-color: $theme-color;
+                        }
                     }
                 }
             }
