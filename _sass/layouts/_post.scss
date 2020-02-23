@@ -1,5 +1,4 @@
 #post{
-    @extend %page-padding;
     .post-header{
         padding-bottom : 60px;
         text-align: center;
@@ -56,11 +55,4 @@
 }
 .top-btn:hover{
     background-color: $theme-dark2;
-}
-
-#comments{
-    @extend %page-padding;
-    div.border{
-        border-top: 1px solid #e7e9ee;
-    }
 }
