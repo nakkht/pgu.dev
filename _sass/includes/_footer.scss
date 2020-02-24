@@ -1,4 +1,6 @@
 footer{
+    @extend %page-padding;
+    padding: 0px 8%!important;
     .footer {
         text-align: center;
         font-size: 0.75rem;

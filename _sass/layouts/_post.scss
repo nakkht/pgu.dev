@@ -1,4 +1,6 @@
 #post{
+    @extend %page-padding;
+     padding: 0px 8%!important;
     .post-header{
         padding-bottom : 60px;
         text-align: center;
