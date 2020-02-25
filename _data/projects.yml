@@ -1,13 +1,17 @@
 - project:
     print: true
-    modal: false
     url: https://github.com/nakkht/logr
     title: logr
     description: Logging libray for iOS in swift
 
 - project:
     print: true
-    modal: false
     url: https://github.com/neqsoft/reso
     title: reso
     description: Android app for monitoring/providing information about the device
+
+- project:
+    print: true
+    url: https://github.com/nakkht/rust-gpx
+    title: rust-gpx
+    description: Tool for generating and manipulating gpx files
