@@ -26,8 +26,6 @@ layout: default
               <p class="excerpt">
                 {% if post.excerpt.size > 50 %}
                 {{ post.excerpt | strip_html | strip_newlines | truncatewords: 25, '...' }}
-                {% else %}
-                {{ post.subtitle }}
                 {% endif %}
               </p>
               <span class="meta">
