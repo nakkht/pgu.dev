@@ -4,4 +4,6 @@ title: Rust and ownership
 author: Paulius Gudonis
 ---
 
-> **Note**: This post is part of a series on Rust language features, including [borrowing](rust-borrowing.md) and [lifetimes](rust-lifetimes.md).
+One of the key rust language concepts is ownership.
+
+> **Note**: This post is part of a series on Rust language features, including [borrowing]() and [lifetimes]().
