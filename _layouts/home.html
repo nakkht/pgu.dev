@@ -25,7 +25,7 @@ layout: default
               <h3 class="title">{{ post.title }}</h3>
               <p class="excerpt">
                 {% if post.excerpt.size > 50 %}
-                {{ post.excerpt | strip_html | strip_newlines | truncatewords: 25, '...' }}
+                {{ post.excerpt | strip_html | strip_newlines | truncatewords: 30, '...' }}
                 {% endif %}
               </p>
               <span class="meta">
