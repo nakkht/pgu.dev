@@ -8,14 +8,17 @@
             margin-bottom: 0px;
         }
         .meta{
-            color : $text-gray;
+            color: $text-gray;
             font-size: 0.85rem;
-            margin-top : 15px;
+            margin-top: 15px;
         }
     }
-    .post-content{
+    .post-content {
         overflow: hidden;
         margin-bottom: 100px;
+        p, ul {
+             margin-bottom: 15px;
+        }
     }
 }
 .top-btn{
