@@ -19,28 +19,3 @@ layout: page
 
 <!-- Footer -->
 {% include footer.html %}
-
-<script>
-  var lastScrollTop = 0;
-  window.onscroll = function () {
-    var st = document.body.scrollTop || document.documentElement.scrollTop;
-    if (st > 250) {
-      document.getElementById("top").style.display = "block"
-      if (st > lastScrollTop) {
-        document.getElementById("top").style.opacity = 0
-      } else {
-        document.getElementById("top").style.opacity = 1
-      }
-    } else {
-      document.getElementById("top").style.opacity = 0
-      if (st > lastScrollTop) {
-        document.getElementById("top").style.display = "none"
-      }
-    }
-    lastScrollTop = st <= 0 ? 0 : st;
-  }
-  function moveTop() {
-    document.body.scrollTop = 0
-    document.documentElement.scrollTop = 0
-  }
-</script>
