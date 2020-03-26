@@ -6,7 +6,7 @@ author: Paulius Gudonis
 
 One of rust language's key concepts is ownership. It is important to understand it early on, as ownership rules are heavily enforced by the compiler.
 
-> **Note**: This post is part of a series on Rust language features, including [borrowing[in-the-works]]() and [lifetimes[in-the-works]]().
+> **Note**: This post is part of a series on Rust language features, including [lifetimes]({% post_url 2020-03-30-rust-lifetimes %}) and [borrowing[in-the-works]]().
 
 There are three main rules:
 * Value/instance belongs to a variable called owner
