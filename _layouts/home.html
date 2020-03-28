@@ -19,20 +19,9 @@ layout: default
     <section id="posts" class="col-md-8">
       {% for post in paginator.posts %}
       <div class="post">
+        <div class="meta"> {{ post.date | date: "%Y-%m-%d" }}</div> 
         <a href="{{ post.url | relative_url }}">
-          <div class="post-wrap">
-            <div class="text-warp">
-              <h3 class="title">{{ post.title }}</h3>
-              <p class="excerpt">
-                {% if post.excerpt.size > 50 %}
-                {{ post.excerpt | strip_html | strip_newlines | truncatewords: 30, '...' }}
-                {% endif %}
-              </p>
-              <span class="meta">
-                {{ post.date | date: "%B %-d, %Y" }}
-              </span>
-            </div>
-          </div>
+            <div class="title">{{ post.title }}</div>
         </a>
       </div>
       {% endfor %}
