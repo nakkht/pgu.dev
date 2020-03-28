@@ -33,47 +33,21 @@
     }
     #posts {
         @extend %posts-padding;
+        padding: 30px 0px;
         .post{
             width: 100%;
             overflow: hidden;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            padding: 15px 0px;
-            .post-wrap{
-                margin : 15px;
-                margin-left : 45px;
-                .text-warp {
-                    display: inline-block;
-                    .title {
-                        position: relative;
-                        line-height: 2rem;
-                    }
-                    .title::before {
-                        content: "";
-                        position: absolute;
-                        left: -25px;
-                        width: 8px;
-                        background-color: rgba(0,0,0,0.1);
-                        border-radius: 8px;
-                        height: 100%;
-                    }
-                    .excerpt{
-                        margin : 10px 0px;
-                    }
-                    .meta {
-                        color : $text-gray;
-                        font-size: 0.85rem;
-                        margin-right : 10px;
-                    }
-                }
+            padding: 10px 0px;
+            .meta {
+                float: left;
+                padding-right: 15px
+            }
+            .title {
+                display:inline-block;
+                font-weight: 600;
                 &:hover {
-                    .text-warp {
-                        .title {
-                            color: $theme-color;
-                        }
-                        .title::before {
-                            background-color: $theme-color;
-                        }
-                    }
+                    color: $theme-color;
+                    text-decoration: underline; 
                 }
             }
         }
