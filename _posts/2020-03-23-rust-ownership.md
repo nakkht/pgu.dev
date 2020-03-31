@@ -6,7 +6,7 @@ author: Paulius Gudonis
 
 One of rust language's key concepts is ownership. It is important to understand it early on, as ownership rules are heavily enforced by the compiler.
 
-> **Note**: This post is part of a series on Rust language features, including ["borrowing"]({% post_url 2020-03-30-rust-borrowing %}) and lifetimes ["lifetimes[in the works]"]().
+> **Note**: This post is part of a series on Rust language features, including ["borrowing"]({% post_url 2020-04-01-rust-borrowing %}) and lifetimes ["lifetimes[in the works]"]().
 
 There are three main rules:
 * Value/instance belongs to a variable called owner
@@ -20,7 +20,7 @@ To execute code snippets in this post without any prior setup, try [rust playgro
 Let us start with the following example:
 
 ```rust
-{						// closure starts
+fn main() {				// closure starts
 	let x: i32 = 42;		// value 42 assigned to variable x (x is the owner)
 	println!("{}", x)		// value gets printed
 }						// closure scope ends and all variables are dropped - variable x is no longer valid
@@ -31,7 +31,7 @@ The snippet will get compiled and print value 42 after execution in the terminal
 Now let's take a look at a different example:
 
 ```rust
-{								// closure starts
+fn main() {						// closure starts
 	let x = String::from("42");		// string of value "42" assigned to variable x (x is the owner)
 	let y = x;						// value which belongs to x is moved to variable y (y is the owner of value "42")
 	println!("{}", x)				// ERROR! borrow of moved value: `x`
@@ -52,7 +52,7 @@ Let's investigate error messages.
 First two lines indicate that on line 4 in `main.rs` file, we try to borrow value `x` (by calling `println!` macro) which was moved and is inaccessible. The third line instructively tells us that the line 3 in `main.rs` is where the move happened: variable `y` was assigned value of `x` and is now the 'owner' of the value "42". As you probably already noticed, the last line of the error messages already describes the underling cause - variable `x` has a type `std::string::String`, which does not implement `Copy` trait. To understand that, let's take a look at another example:
 
 ```rust
-{								// closure starts
+fn main() {						// closure starts
 	let x: i32 = 42;				// value 42 assigned to variable x (x is the owner)
 	let y = x;						// value which belongs to x is 'copied' to variable y (y is the owner of distinct value 42)
 	println!("x: {} y: {}", x, y)		// value of x and y are printed
