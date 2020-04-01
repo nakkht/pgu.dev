@@ -1,21 +1,21 @@
 ---
 layout: post
-title: Rust and ownership
+title: "Rust language: ownership"
 author: Paulius Gudonis
 ---
 
-One of rust language's key concepts is ownership. It is important to understand it early on, as ownership rules are heavily enforced by the compiler.
+One of Rust language's key concepts is ownership. It is important to understand it early on, as ownership rules are heavily enforced by the compiler.
 
-> **Note**: This post is part of a series on Rust language features, including ["borrowing"]({% post_url 2020-04-01-rust-borrowing %}) and lifetimes ["lifetimes[in the works]"]().
+> **Note**: This post is part of a series on Rust language features, including ["borrowing"]({% post_url 2020-04-02-rust-borrowing %}) and lifetimes ["lifetimes[in the works]"]().
 
 There are three main rules:
 * Value/instance belongs to a variable called owner
 * Every value has a single owner
 * Owner determines lifetime of the value
 
-The last point ultimately means that if the owner is freed/deallocated from the memory or as in rust terminology - dropped, any owned values are promptly dropped as well.
+The last point ultimately means that if the owner is freed/deallocated from the memory or as in Rust terminology - dropped, any owned values are promptly dropped as well.
 
-To execute code snippets in this post without any prior setup, try [rust playground](https://play.rust-lang.org)
+To execute code snippets in this post without any prior setup, try [Rust playground](https://play.rust-lang.org)
 
 Let us start with the following example:
 
@@ -59,6 +59,6 @@ fn main() {						// closure starts
 }								// closure scope ends and all variables are dropped - variable x and y are no longer valid		
 ```
 
-To our surprise, the following snippet compiled, ran and printed out "x: 42 y: 42".	 So what happened? The answer is `Copy` type/trait. `String::from("42")` produces a String (not to be confused with primitive [string literal](https://doc.rust-lang.org/1.7.0/book/strings.html)) which does not conform to `Copy` trait and thus its value is moved from variable `x` to `y` whereas value 42 is type of `i32` which conforms to `Copy` trait and its value is copied rather than moved. Due to the following, the latter example is valid rust code without breaking any rules stated at the beginning. You could say that the `Copy` trait is an exception to 'move' semantics.
+To our surprise, the following snippet compiled, ran and printed out "x: 42 y: 42".	 So what happened? The answer is `Copy` type/trait. `String::from("42")` produces a String (not to be confused with primitive [string literal](https://doc.rust-lang.org/1.7.0/book/strings.html)) which does not conform to `Copy` trait and thus its value is moved from variable `x` to `y` whereas value 42 is type of `i32` which conforms to `Copy` trait and its value is copied rather than moved. Due to the following, the latter example is valid Rust code without breaking any rules stated at the beginning. You could say that the `Copy` trait is an exception to 'move' semantics.
 
-So far rules declared at the beginning of the post seemed to hold up. To ensure memory safety rust language brings ownership concept which is heavily enforced at compile time. This allows to avoid some those serious 'dangling pointer' bugs coming from the C language world. 
+So far rules declared at the beginning of the post seemed to hold up. To ensure memory safety Rust language brings ownership concept which is heavily enforced at compile time. This allows to avoid some those serious 'dangling pointer' bugs coming from the C language world. 
