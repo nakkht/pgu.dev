@@ -4,18 +4,17 @@ title: "Rust language: ownership"
 author: Paulius Gudonis
 ---
 
+> **Note**: This post is part of a series on Rust language features, including ["borrowing"]({% post_url 2020-04-02-rust-borrowing %}) and ["lifetimes[in the works]"]().  
+> To execute code snippets in this post without any prior setup, try [Rust playground](https://play.rust-lang.org)
+
 One of Rust language's key concepts is ownership. It is important to understand it early on, as ownership rules are heavily enforced by the compiler.
-
-> **Note**: This post is part of a series on Rust language features, including ["borrowing"]({% post_url 2020-04-02-rust-borrowing %}) and lifetimes ["lifetimes[in the works]"]().
-
+	
 There are three main rules:
 * Value/instance belongs to a variable called owner
 * Every value has a single owner
 * Owner determines lifetime of the value
 
 The last point ultimately means that if the owner is freed/deallocated from the memory or as in Rust terminology - dropped, any owned values are promptly dropped as well.
-
-To execute code snippets in this post without any prior setup, try [Rust playground](https://play.rust-lang.org)
 
 Let us start with the following example:
 
