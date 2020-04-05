@@ -137,3 +137,45 @@ fn main() {
 
 All these constraints help to prevent data races at compile time: no two pointers will ever write/read values at the same time and multiple immutable data access can't affect anyone else's data reading.
 
+Finally, according the last rule, any borrow may not last longer than a scope of the owner or in other words no reference will ever outlive data it references. Meaning, Rust compiler will ensure no dangling pointers (dangling pointer - a pointer that references a location in memory that may have been deallocated or given to someone else). These kind of issues are often source of vulnerabilities and exploits in languages such as C. For example:
+
+```c
+#include<stdio.h>  
+int main()  
+{  
+    char *str;  
+    {  
+        char a = 'A';  
+        str = &a;  
+    }  
+    // a falls out of scope   
+    // str is now a dangling pointer   
+    printf("%s", *str);  
+}  
+```
+
+So how does Rust languages prevents it? Let's take a look at Rust equivalent version:
+
+```rust
+fn main() {
+	let y;
+	{
+		let x = 42;
+		y = &x;
+	}
+	println!("{}", y);
+}
+```
+
+Compiling the latter code snippet will fail and the following error message will be shown:
+
+```html
+error: src/main.rs:5: `x` does not live long enough
+error: src/main.rs:5: borrowed value does not live long enough
+error: src/main.rs:6: `x` dropped here while still borrowed
+error: src/main.rs:7: borrow later used here
+```
+
+Rust immediately pinpoints the issue - `x` value is dropped within line 6 and has a lifetime shorter than variable y, rendering it inaccessible on line 7.
+
+As promised, Rust keeps up to being memory safe and data-race free. This means that not only the code you write will have those attributes, but also the code from the standard library or libraries you included yourself. Borrow checker does a great job enforcing the rules. For a novice Rust users there's definitely a learning curve, however, it is definitely worth it in the long run.
