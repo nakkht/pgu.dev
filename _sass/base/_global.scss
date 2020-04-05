@@ -93,13 +93,14 @@ a:link, a:visited, a:active, a:hover {
 	padding-bottom: 30px;
 }
 .row{
-	margin : auto 0px;
+	margin: auto 0px;
 }
 .display-none{
 	display: none;
 }
 .highlighter-rouge {
     font-size: 0.9rem;
+	background-color: #f6f6f6;
 }
 .tag {
 	background-color: $theme-dark;
