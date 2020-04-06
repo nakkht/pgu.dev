@@ -4,7 +4,7 @@ title: "Rust language: borrowing"
 author: Paulius Gudonis
 ---
 
-> **Note**: This post is part of a series on Rust language features, including ["ownership"]({% post_url 2020-03-23-rust-ownership %}) and ["lifetimes[in the works]"]().  
+> **Note**: This post is a part of series on Rust language features, including ["ownership"]({% post_url 2020-03-23-rust-ownership %}) and ["lifetimes[in the works]"]().  
 > To execute code snippets in this post without any prior setup, try [Rust playground](https://play.rust-lang.org).
 
 Next important Rust language concept which caters ownership is called borrowing. Let's jump straight into the following example:
@@ -22,7 +22,7 @@ fn compute(str: String, vec: Vec<i32>) -> (String, Vec<i32>) {
 }
 ```
 
-As described in the [previous post]({% post_url 2020-03-23-rust-ownership %}) on ownership, the example won't compile and errors about moved values and missing `Copy` traits will be shown. Question is, can we do something about it and the answer is yes - take advantage of borrowing. Let's take a look at the next example:
+As discussed in the [previous post]({% post_url 2020-03-23-rust-ownership %}) on ownership, this example won't compile and errors about moved values and missing `Copy` traits will be shown. Question is, can we do something about it and the answer is yes - take advantage of borrowing. Let's have a look at another example:
 
 ```rust
 fn main() {
@@ -39,14 +39,14 @@ fn compute(str: &String, vec: &Vec<i32>) -> String {
 
 After building and running, the following output will appear: `Hello 2020, [3, 42], Hello 2020 342`
 
-The subtle difference is that instead of passing value of `String` and `Vec` as a parameter, the references are provided (notice `&` character next to function parameter type definition). In Rust terminology it is called "borrowing ownership". It allows to access value without affecting its ownership. This mechanism unlike moving values, does not deallocate the resource when it goes out of scope. That's why even after passing references to `compute` function in the last code snippet, it was still possible to print values of `text` and `vec` directly within `println!` macro.
+The subtle difference is that instead of passing value of `String` and `Vec` as a parameter to `compute` function, the references are provided (notice `&` character next to function parameter type definition `&String` and `&Vec<i32>`). In Rust terminology it is called "borrowing ownership". It allows to access value without affecting its ownership. This mechanism unlike moving values, does not deallocate the resource when it goes out of scope. That's why even after passing references to `compute` function in the last code snippet, it was still possible to print values of `text` and `vec` directly within `println!` macro in `main` function.
 
 This brings us to the rules of borrowing:
 * There can be more than one reference to a resource
-* There can be only one mutable reference at the time
+* There can be only one mutable reference to a resource at the time
 * Any borrow may not last longer than a scope of the owner
 
-The second rule introduces mutable references. These type of references allow you to mutate values that the reference is borrowing. Regular references, as you probably suspected, are immutable and that's the reason you can have more than one while keeping memory safe. On the other hand, mutable reference can be only one at the time and is denoted in the following syntax `&mut T`. For example:
+The second rule talks about mutable references. These type of references allow to mutate values that the reference is borrowing. Regular references, as you probably suspected, are by default immutable and that's the reason you can have more than one without losing memory safety. On the other hand, mutable reference can be only one at the time and is denoted in the following syntax `&mut T`. For example:
 
 ```rust
 fn main() {
@@ -61,7 +61,8 @@ fn mutate_value(vec: &mut Vec<i32>) {
 ```
 
 The latter code snippet will compile, run and will output: `[42, 0]`
-As you noticed `mutate_value` function signature contains parameter with type `&mut Vec<i32>` which indicates that the caller has to provide mutable reference to vector. This allows to append value to the vector and print updated value. Now let's see what rust compiler will do if multiple mutable references are introduced:
+
+As you noticed `mutate_value` function signature contains parameter with type `&mut Vec<i32>` which indicates that the caller has to provide mutable reference to vector. This allows to append value to the vector and later print updated value within `main` function. Now let's see what rust compiler will do if multiple mutable references are introduced:
 
 ```rust
 fn main() {
@@ -79,7 +80,7 @@ fn main() {
 
 Weirdly enough, the code compiles, runs and outputs two lines: `[0, 1]` and `[0, 1, 2]`
 
-It turns out, Rust compiler is pretty smart and can determine whether two multiple references are simultaneous. In this case they are not and since reference scope starts when it is declared and ends with the last usage, Rust compiler allows the code. Try visualizing in scopes:
+It turns out, Rust compiler is pretty smart and can determine whether two multiple references are simultaneous. In this case `reference1` and `reference2` are not simultaneous and because reference scope starts when it is declared and ends with the last usage, Rust compiler allows the code. Try visualizing it in scopes:
 
 ```rust
 fn main() {
@@ -95,7 +96,7 @@ fn main() {
 }
 ```
 
-If we rearrange the code to something like this:
+The latter code snippet is equivalent to the previous one, but with a nice curly bracket visual to emphasize `reference1` and `reference2` lifetimes. However, if we rearrange the code to something like this:
 
 ```rust
 fn main() {
@@ -112,7 +113,7 @@ fn main() {
 }
 ```
 
-The following error messages will appear as expected:
+The following error messages will appear as expected as no two mutable references are allowed:
 
 ```html
 error: src/main.rs:5: cannot borrow `vec` as mutable more than once at a time
@@ -131,13 +132,13 @@ fn main() {
 	let reference2 = &mut vec;
 	reference2.push(2);
 	
-	println!("{:?}, {:?}", reference1, reference1);
+	println!("{:?}, {:?}", reference1, reference2);
 }
 ```
 
-All these constraints help to prevent data races at compile time: no two pointers will ever write/read values at the same time and multiple immutable data access can't affect anyone else's data reading.
+Rust does not allow having mutable and immutable references at the same time and it makes sense - would immutable reference hold true if the value actually is mutated underneath. All these constraints help to prevent data races at compile time: no two pointers will ever write/read values at the same time.
 
-Finally, according the last rule, any borrow may not last longer than a scope of the owner or in other words no reference will ever outlive data it references. Meaning, Rust compiler will ensure no dangling pointers (dangling pointer - a pointer that references a location in memory that may have been deallocated or given to someone else). These kind of issues are often source of vulnerabilities and exploits in languages such as C. For example:
+Finally, according to the last rule, any borrow may not last longer than a scope of the owner or in other words no reference will ever outlive data it references. Rust compiler will ensure no dangling pointers (dangling pointer - a pointer that references a location in memory that may have been deallocated or given to someone else). These kind of issues are often source of vulnerabilities and exploits in languages such as C. For example:
 
 ```c
 #include<stdio.h>  
@@ -176,6 +177,8 @@ error: src/main.rs:6: `x` dropped here while still borrowed
 error: src/main.rs:7: borrow later used here
 ```
 
-Rust immediately pinpoints the issue - `x` value is dropped within line 6 and has a lifetime shorter than variable y, rendering it inaccessible on line 7.
+Rust immediately pinpoints the issue - value `x` is dropped within line 6 and has a lifetime shorter than variable y, rendering it inaccessible on line 7.
 
-As promised, Rust keeps up to being memory safe and data-race free. This means that not only the code you write will have those attributes, but also the code from the standard library or libraries you included yourself. Borrow checker does a great job enforcing the rules. For a novice Rust users there's definitely a learning curve, however, it is definitely worth it in the long run.
+In conclusion, Rust lives up to expectations of being memory safe and data-race free. Borrow checker does a magnificent job enforcing the rules and managing borrowing references. Furthermore, improved Rust compiler error messages describes issues pretty well, providing a better feedback on what went wrong.
+
+In the next and last post on Rust ownership, we'll get into lifetimes.
