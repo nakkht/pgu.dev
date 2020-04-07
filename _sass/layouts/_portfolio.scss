@@ -81,10 +81,9 @@
           padding: 15px 0 15px 30px;
           p {
             font-weight: 600;
-            line-height: 0.8rem;
           }
           .date {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: rgba(0, 0, 0, 0.5);
           }
           .description {
@@ -117,13 +116,11 @@
       padding-top: 35px;
       ul.skill-list {
         margin-top: 20px;
-        margin-left: 3%;
         list-style-type: none;
         li.skill {
           margin: 18px auto;
           .name {
             padding-left: 5px;
-            font-size: 0.85rem;
             font-weight: 600;
           }
           .progress {
