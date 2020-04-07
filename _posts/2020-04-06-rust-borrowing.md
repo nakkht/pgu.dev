@@ -4,7 +4,7 @@ title: "Rust language: borrowing"
 author: Paulius Gudonis
 ---
 
-> **Note**: This post is a part of series on Rust language features, including ["ownership"]({% post_url 2020-03-23-rust-ownership %}) and ["lifetimes[in the works]"]().  
+> **Note**: This post is a part of series on Rust language features, including ["ownership"]({% post_url 2020-03-23-rust-ownership %}) and ["lifetimes"]({% post_url 2020-04-13-rust-lifetimes %}).  
 > To execute code snippets in this post without any prior setup, try [Rust playground](https://play.rust-lang.org).
 
 Next important Rust language concept which is part of ownership is called borrowing. Let's jump straight into the following example:
