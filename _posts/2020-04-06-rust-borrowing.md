@@ -62,7 +62,7 @@ fn mutate_value(vec: &mut Vec<i32>) {
 
 The latter code snippet will compile, run and will output: `[42, 0]`
 
-As you noticed `mutate_value` function signature contains parameter with type `&mut Vec<i32>` which indicates that the caller has to provide mutable reference to vector. This allows to append value to the vector and later print updated value within `main` function. Now let's see what rust compiler will do if multiple mutable references are introduced:
+As you noticed `mutate_value` function signature contains parameter with type `&mut Vec<i32>` which indicates that the caller has to provide mutable reference of vector type. This allows to append value to vector and later print updated value within `main` function. Now let's see what rust compiler will do if multiple mutable references are introduced:
 
 ```rust
 fn main() {
@@ -136,7 +136,7 @@ fn main() {
 }
 ```
 
-Rust does not allow having mutable and immutable references at the same time and it makes sense - would immutable reference hold true if the value actually is mutated underneath. All these constraints help to prevent data races at compile time: no two pointers will ever write/read values at the same time.
+Rust does not allow having mutable and immutable references at the same time and it makes sense - would immutable reference hold true if the value actually is mutated underneath. All these constraints help to prevent data races at compile time: no two pointers will ever write and read values at the same time.
 
 Finally, according to the last rule, any borrow may not last longer than a scope of the owner or in other words no reference will ever outlive data it references. Rust compiler will ensure no dangling pointers (dangling pointer - a pointer that references a location in memory that may have been deallocated or given to someone else). These kind of issues are often source of vulnerabilities and exploits in languages such as C. For example:
 
@@ -155,7 +155,7 @@ int main()
 }  
 ```
 
-So how does Rust languages prevents it? Let's take a look at Rust equivalent version:
+So how does Rust language prevents it? Let's take a look at Rust equivalent version:
 
 ```rust
 fn main() {
