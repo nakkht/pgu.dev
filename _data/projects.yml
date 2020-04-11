@@ -12,6 +12,6 @@
 
 - project:
     print: true
-    url: https://github.com/nakkht/rust-gpx
-    title: rust-gpx
-    description: Tool for generating and manipulating gpx files
+    url: https://github.com/nakkht/rust-gpx-cli
+    title: rust-gpx-cli
+    description: CLI tool for generating and manipulating gpx files
