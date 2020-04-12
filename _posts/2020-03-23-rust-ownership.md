@@ -4,7 +4,7 @@ title: "Rust language: ownership"
 author: Paulius Gudonis
 ---
 
-> **Note**: This post is part of a series on Rust language features, including ["borrowing"]({% post_url 2020-04-06-rust-borrowing %}) and ["lifetimes"]({% post_url 2020-04-13-rust-lifetimes %}).  
+> **Note**: This post is part of a series on Rust language features, including ["borrowing"]({% post_url 2020-04-06-rust-borrowing %}) and ["lifetimes"]().  
 > To execute code snippets in this post without any prior setup, try [Rust playground](https://play.rust-lang.org)
 
 One of Rust language's key concepts is ownership. It is important to understand it early on, as ownership rules are heavily enforced by the compiler.
