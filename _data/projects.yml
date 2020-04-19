@@ -15,3 +15,9 @@
     url: https://github.com/nakkht/rust-gpx-cli
     title: rust-gpx-cli
     description: CLI tool for generating and manipulating gpx files
+
+- project:
+    print: true
+    url: https://github.com/nakkht/quick-constraint
+    title: quick-constraint
+    description: Extension functions in swift for making layout for iOS/macOS/tvOS programmatically easier and faster
