@@ -9,19 +9,22 @@ author: Paulius Gudonis
 
 For the last segment on Rust language features, we'll take a look at lifetimes. In the [previous post]({% post_url 2020-04-06-rust-borrowing %}) on borrowing I have few times mentioned term lifetimes when talking about references. Each reference has a lifetime, determining the scope for which lifetime is valid.
 
-Most of the time lifetime of a reference is implicit and borrow checker can do pretty good job determining how long each reference is valid within a function or closure. Similarly to how strongly type However, once the code gets more complicated and references are passed between functions, borrow checker cannot determines lifetime and it requires to get explicit annotation to determine how those references are related. The following syntax is used to denote lifetime:
+Most of the time lifetime of a reference is implicit and borrow checker can do pretty good job determining how long each reference is valid within a function or closure. However, once the code gets more complicated and multiple references are passed between functions, borrow checker cannot determine lifetime and it requires to get explicit annotation to figure out how those references are related.
+The aim of lifetimes is to avoid dangling pointers which reference invalid data. As mentioned in the previous post, this type of issue is always exploited when searching for vulnerabilities in software.
 
 ```rust
-&'a i32			- a reference with explicit lifetime
-&'a mut i32		- a mutable reference with explicit lifetime
+fn load<'a>(xml: &'a String) -> Reader<&'a [u8]> {
+  let mut reader = Reader::from_str(&xml);
+  reader.trim_text(true);
+  return reader;
+}
 ```
 
-<--- Lifetime purpose --->
+The following syntax is used to denote lifetime:
 
-
-<--- Annotation syntax --->	
-* In function signature
-
-
+```rust
+&'a i32			// a reference with explicit lifetime for type i32
+&'a mut i32		// a mutable reference with explicit lifetime for type i32
+```
 
 <--- Lifetime Elision ---> 
