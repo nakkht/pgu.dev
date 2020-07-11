@@ -77,12 +77,12 @@ h6 {
 	p{
 		font-size : 0.9rem;
 	}
-}
-ol, ul {
-	li { font-size: 15px; }
+	ol, ul {
+		li { font-size: 0.9rem; }
+	}
 }
 em {
-	font-size: 15px;
+	font-size: 0.9rem;
 }
 a:link, a:visited, a:active, a:hover {
 	text-decoration: none; 
@@ -98,10 +98,12 @@ a:link, a:visited, a:active, a:hover {
 .display-none{
 	display: none;
 }
-.highlighter-rouge {
+code.highlighter-rouge {
     font-size: 0.9rem;
-	background-color: #f6f6f6;
-	border-radius: 4px;
+    padding: .1rem .4rem;
+	background: #eff0f1;
+	color: rgba(0,0,0,0.7);
+	border-radius: 6px;
 }
 .tag {
 	background-color: $theme-dark;
@@ -119,7 +121,7 @@ a:link, a:visited, a:active, a:hover {
 .tag:hover {
 	background-color: $theme-dark2;
 }
-#icons{
+#icons {
 	margin-top: 25px;
 	li { 
 		display: inline-block; 
@@ -140,7 +142,7 @@ a:link, a:visited, a:active, a:hover {
 		color : #fff;
 	}
 }
-#error404{
+#error404 {
 	margin-top : 200px;
 	text-align: center;
 

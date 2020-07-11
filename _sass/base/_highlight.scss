@@ -1,9 +1,10 @@
 .highlight pre { 
-    border-radius: 3px;
+    border-radius: 6px;
     padding: 10px; 
     margin : 10px 0;
-    white-space: pre; 
+    white-space: pre;
     overflow: auto;
+    font-size: 0.9rem;
 }
 
 // https://github.com/richleland/pygments-css
