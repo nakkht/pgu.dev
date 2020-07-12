@@ -4,7 +4,7 @@ title: "Rust language: borrowing"
 author: Paulius Gudonis
 ---
 
-> **Note**: This post is a part of series on Rust language features, including ["ownership"]({% post_url 2020-03-23-rust-ownership %}) and ["lifetimes"]().  
+> **Note**: This post is a part of series on Rust language features, including ["ownership"]({% post_url 2020-03-23-rust-ownership %}) and ["lifetimes"]({% post_url 2020-07-13-rust-lifetimes %}).  
 > To execute code snippets in this post without any prior setup, try [Rust playground](https://play.rust-lang.org).
 
 Next important Rust language concept which is part of ownership is called borrowing. Let's jump straight into the following example:
@@ -179,6 +179,7 @@ error: src/main.rs:7: borrow later used here
 
 Rust immediately pinpoints the issue - value `x` is dropped within line 6 and has a lifetime shorter than variable y, rendering it inaccessible on line 7.
 
+----
 In conclusion, Rust lives up to expectations of being memory safe and data-race free. Borrow checker does a magnificent job enforcing the rules and managing borrowing references. Furthermore, improved Rust compiler error messages describes issues pretty well, providing a better feedback on what went wrong.
 
 In the next and last post on Rust ownership, we'll get into lifetimes.
