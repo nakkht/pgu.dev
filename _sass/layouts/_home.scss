@@ -53,37 +53,3 @@
         }
     }
 }
-
-// Pagination 
-#pagination{
-    margin-top : 60px;
-    margin-bottom : 60px;
-    text-align: center;
-    li.btn-rounded{
-        display: inline-block;
-        width: 35px;
-        height: 35px;
-        margin-right: 10px;
-        border: 2px solid rgba(0,0,0,0.07);
-        border-radius: 50%;
-        color: rgba(0,0,0,0.54);
-        font-size: 0.8rem;
-        font-weight: 600;
-        line-height: 30px;
-    }
-    li.prev, li.next {
-        background-color: rgba(0,0,0,0.07);
-        border: 2px solid rgba(0,0,0,0.0);
-    }
-
-    li.btn-rounded:hover{
-        background-color: $theme-dark;
-        border: 2px solid $theme-dark;
-        color : #fff;
-    }
-    .selected li{
-        background-color: $theme-dark;
-        border: 2px solid $theme-dark;
-        color : #fff;
-    }
-} 

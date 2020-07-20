@@ -37,12 +37,9 @@ theme_settings:
     github: nakkht
     twitter: nakkht
 
-paginate: 5
-paginate_path: "blog/page:num"
-
 sass:
   sass_dir: _sass
   style: :compressed
-plugins: [jekyll-paginate]
+
 bootstrap:
   assets: true
