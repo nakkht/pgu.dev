@@ -1,23 +1,23 @@
 - project:
     print: true
     url: https://github.com/nakkht/logr
-    title: logr
-    description: Logging libray for iOS in swift
+    title: Logr
+    description: Logging library for macOS/iOS/tvOS written in pure Swift
 
 - project:
     print: true
     url: https://github.com/neqsoft/reso
-    title: reso
-    description: Android app for monitoring/providing information about the device
+    title: Reso
+    description: Android app for monitoring/providing information about device
 
 - project:
     print: true
     url: https://github.com/nakkht/rust-gpx-cli
-    title: rust-gpx-cli
-    description: CLI tool for generating and manipulating gpx files
+    title: GPX cli
+    description: CLI tool for generating and manipulating gpx files written in Rust
 
 - project:
     print: true
     url: https://github.com/nakkht/quick-constraint
-    title: quick-constraint
-    description: Extension functions in swift for making layout for iOS/macOS/tvOS programmatically easier and faster
+    title: QuickConstraint
+    description: Extension functions enabling making layouts for macOS/iOS/tvOS programmatically easier and faster
