@@ -21,3 +21,9 @@
     url: https://github.com/nakkht/quick-constraint
     title: QuickConstraint
     description: Extension functions enabling making layouts for macOS/iOS/tvOS programmatically easier and faster
+
+- project:
+    print: true
+    url: https://github.com/nakkht/progressx
+    title: ProgressX
+    description: iOS UI library for displaying progress. Inspired by progress indidator displayed during SpaceX live streams. 
