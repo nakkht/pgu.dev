@@ -143,5 +143,4 @@ struct User<'a> {
 
 The latter solution fixes the issue and we get values printed as expected: `Full name: John Doe`
 
-----
 Initially, lifetime annotations might appear intimidating and complicated but don't get discouraged. The sooner you become confident in using them, the sooner it will feel natural and part of your development flow. If you get stuck, feel free to have a look at official [Rust book](https://doc.rust-lang.org/book/) for more advanced content or even ask people in friendly communities on [discord](https://discord.com/invite/rust-lang) or [/r/rust](https://www.reddit.com/r/rust/).

@@ -60,5 +60,4 @@ fn main() {						// closure starts
 
 To our surprise, the following snippet compiled, ran and printed out "x: 42 y: 42".	 So what happened? The answer is `Copy` type/trait. `String::from("42")` produces a String (not to be confused with primitive [string literal](https://doc.rust-lang.org/1.7.0/book/strings.html)) which does not conform to `Copy` trait and thus its value is moved from variable `x` to `y` whereas value 42 is type of `i32` which conforms to `Copy` trait and its value is copied rather than moved. Due to the following, the latter example is valid Rust code without breaking any rules stated at the beginning. You could say that the `Copy` trait is an exception to 'move' semantics.
 
-----
 So far rules declared at the beginning of the post held up. To ensure memory safety Rust language brings ownership concept which is heavily enforced at the compile time. However, there is more to it, like ["borrowing ownership"]({% post_url 2020-04-06-rust-borrowing %}).

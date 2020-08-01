@@ -179,7 +179,6 @@ error: src/main.rs:7: borrow later used here
 
 Rust immediately pinpoints the issue - value `x` is dropped within line 6 and has a lifetime shorter than variable y, rendering it inaccessible on line 7.
 
-----
 In conclusion, Rust lives up to expectations of being memory safe and data-race free. Borrow checker does a magnificent job enforcing the rules and managing borrowing references. Furthermore, improved Rust compiler error messages describes issues pretty well, providing a better feedback on what went wrong.
 
 In the next and last post on Rust ownership, we'll get into lifetimes.
