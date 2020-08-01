@@ -17,7 +17,7 @@ fn sum(x: &i32, y: &i32) -> i32
 // and so on
 ```
 
-Then you don't need to explicitly annotate parameter lifetimes. Rust does that for you behind the scenes by providing each reference its own input lifetime. Equivalent `sum` function will look like this:
+You don't need to explicitly annotate parameter lifetimes. Rust does that for you behind the scenes by providing each reference its own input lifetime. Equivalent `sum` function will look like this:
 
 ```rust
 fn sum<'a>(x: &'a i32) -> i32
@@ -70,6 +70,6 @@ impl<'a> Foo<'a> {
 }  
 ```
 
-This drastically reduces amount of explicit annotations and repetitive code being written again and again once more methods are added to the instance. In addition, it is important to know that if _lifetime elision_ does not behave as you wanted, you can always add annotations explicitly.
+This drastically reduces amount of annotations and repetitive code being written again and again once more methods are added to the instance. In addition, it is important to know that if _lifetime elision_ does not behave as you wanted, you can always add annotations explicitly.
 
-Lifetime elision rules is a great initiative and effort from Rust team to make code less verbose. Even if it doesn't provide full lifetime inference at this point as one might expect, it brings confidence that when more deterministic patterns appear, they could be added to Rust compiler. 
+Lifetime elision rules is a great initiative and effort from Rust team to make code less verbose. Even if it doesn't provide full lifetime inference at this point as one might expect, it is plausible that when more deterministic patterns appear, they could be added to the Rust compiler. 
