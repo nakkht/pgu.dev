@@ -26,4 +26,4 @@
     print: true
     url: https://github.com/nakkht/progressx
     title: ProgressX
-    description: iOS UI library for displaying progress. Inspired by progress indidator displayed during SpaceX live streams. 
+    description: UI library for iOS displaying progress. Inspired by progress indicator displayed during SpaceX live streams
