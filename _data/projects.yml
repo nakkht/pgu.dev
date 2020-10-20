@@ -27,3 +27,9 @@
     url: https://github.com/nakkht/progressx
     title: ProgressX
     description: UI library for iOS displaying progress. Inspired by progress indicator displayed during SpaceX live streams
+
+- project:
+    print: true
+    url: https://github.com/nakkht/usbtkit
+    title: UsbtKit
+    description: Swift library to allow data transmission over USB on iOS
