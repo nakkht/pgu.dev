@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "iOS build versioning"
+title: "iOS versioning: build number"
 author: Paulius Gudonis
 ---
 
