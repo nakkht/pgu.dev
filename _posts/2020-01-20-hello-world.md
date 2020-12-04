@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Hello, World!
+title: "Hello, World!"
 author: Paulius Gudonis
 ---
 

@@ -1,5 +1,5 @@
 ---
 layout: post
-title: "iOS build number generation"
+title: "iOS lazy var: threading"
 author: Paulius Gudonis
 ---
