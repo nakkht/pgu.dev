@@ -3,7 +3,6 @@
 	font-family: 'Open Sans', 'Spoqa Han Sans', 'Sans-serif';
 	box-sizing: border-box;
 }
-html, body{height:100%;}
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -31,7 +30,8 @@ footer, header, hgroup, menu, nav, section, main {
 	display: block;
 }
 html, body {
-	color: $text;
+	color: $color-text;
+	background: $color-background;
 	height: 100%;
 }
 h1, h2, h3, h4, h5, h6{
@@ -85,8 +85,8 @@ em {
 	font-size: 0.9rem;
 }
 a:link, a:visited, a:active, a:hover {
-	text-decoration: none; 
-	color: $text;
+	text-decoration: none;
+	color: $color-text;
 }
 .container{
 	padding-top: 30px;
@@ -101,8 +101,8 @@ a:link, a:visited, a:active, a:hover {
 code.highlighter-rouge {
     font-size: 0.9rem;
     padding: .1rem .4rem;
-	background: #eff0f1;
-	color: rgba(0,0,0,0.7);
+	background: #272822;
+	color: #de6b18;
 	border-radius: 6px;
 }
 #icons {
@@ -110,42 +110,20 @@ code.highlighter-rouge {
 	li { 
 		display: inline-block; 
 	}
-	i{
-		width: 40px;
-		height: 40px;
-		background-color: rgba(0,0,0,0.07);
-		color : rgba(0,0,0,0.7);
+	i {
+		width: 35px;
+		height: 35px;
+		background-color: $color-text;
+		color: rgba(0,0,0,0.7);
 		border-radius: 50%;
-		font-size : 1.3rem;
-		line-height: 42px;
-		margin-right : 10px;
+		font-size: 1.3rem;
+		line-height: 35px;
+		margin-right: 10px;
 		text-align: center;
+		color: $color-background;
 	}
 	i:hover {
-		background-color: $theme-dark;
-		color : #fff;
+		background-color: $color-text-light;
+		color: $color-accent;
 	}
-}
-#error404 {
-	margin-top : 200px;
-	text-align: center;
-
-	.return-btn {
-		color : rgba(0,0,0,0.7);
-		p {
-			display: inline-block;
-			padding: 10px 30px;
-			margin-top: 30px;
-			border-radius: 15px;
-			font-weight: 600;
-			background-color: rgba(0,0,0,0.07);
-		}
-		}
-	.return-btn:hover{ 
-		p{
-			background-color: $theme-dark;
-			color : #fff;	
-		}
-	}
-
 }

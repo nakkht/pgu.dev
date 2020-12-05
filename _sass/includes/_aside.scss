@@ -1,15 +1,15 @@
-#aside{
+#aside {
     text-align: center;
     padding : 0px 2%;
     #profile, #tag-wrap {
         margin-bottom: 60px;
     }
-    p b{
-        // color: $theme-color;
+    p b {
+        color: $color-text;
         letter-spacing: -0.05rem;
         font-size: 1rem;
     }
-    .img-wrap{
+    .img-wrap {
         display: inline-block;
         position: relative;
         overflow: hidden;
@@ -22,7 +22,6 @@
             width : 100%;
         }
     }
-    // Profile Image Cover
     .img-wrap::before{
         content : "";
         position : absolute;
@@ -41,29 +40,27 @@
         text-transform: uppercase;
         line-height: 1.5em;
         margin-bottom: 20px;
+        color: $color-text;
     }
-    .title:hover{
-        color: $theme-color;
-    }
-    .description{
+    .description {
         font-size : 0.95rem;
+        color: $color-text;
     }
-    #proj-wrap{
+    #proj-wrap {
         .proj-title {
             font-weight: 600;
             font-size: 0.9rem;
         }
-        .meta, .meta span{
-            color: rgba(0,0,0,0.5);
+        .meta, .meta span {
             font-size: 0.75rem;
             margin : 3px 0 10px;
         }
-        .proj-hr{
+        .proj-hr {
             width: 100px;
-            border : 0.5px solid rgba(0,0,0,0.1);
+            border: 0.5px solid rgba(0,0,0,0.1);
         }
         .proj-content:hover *{
-            color: $theme-dark;
+            color: $color-accent;
         }
     }
 }

@@ -1,9 +1,13 @@
-$theme-color: #484848;
-$theme-bright: #8e8e8e;
-$theme-dark: #212121;
-$theme-dark2: #1b1b1b;
-$text: #222;
-$text-gray: rgba(0,0,0,0.54);
+$color-text: #d2d4d6;
+$color-text-light: #fff;
+
+$color-background-dark: #212121;
+$color-background: #1B1D1E;
+$color-background-gray: #fff;
+
+$color-accent: #007bff;
+$color-accent-secondary: #484848;
+$color-accent-light: #3b4f58;
 
 %page-padding {
     padding: 0px 15%!important;

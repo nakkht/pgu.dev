@@ -1,15 +1,16 @@
-footer{
+footer {
     @extend %page-padding;
     padding: 0px 8%!important;
     .footer {
+        color: $color-text;
         text-align: center;
         font-size: 0.8rem;
         padding-top: 30px!important;
-        border-top: 1px solid #e7e9ee;
+        border-top: 1px solid $color-accent-secondary;
         a {
             font-size: 0.8rem;
             font-weight: 600;
-            color: $theme-color!important;
+            color: $color-accent;
         }
     }
 }

@@ -1,17 +1,18 @@
-header{
+header {
     margin-bottom: 60px;
     @extend %page-padding;
-    nav{
+    nav {
         ul{
             li{
                 position: relative;
                 display: inline-block; 
-                margin-right : 5%;
+                margin-right: 5%;
                 font-size: 1rem;
                 line-height: 2.3rem; 
             }
             .current {
                 font-weight: 700;
+                color: $color-text;
             }
             .current::after {
                 content: " "; 
@@ -22,9 +23,6 @@ header{
                 margin: 0 auto;
                 border: 1px solid !important;
             }
-            .current.btn-nav:hover{
-                color : $theme-color;
-            }
             .btn-nav::after{
                 content: " "; 
                 position: relative;
@@ -34,16 +32,13 @@ header{
                 margin: 0 auto;
                 border: 1px solid rgba(255, 255, 255, 0); 
             }
-            
             .btn-nav:hover::after{
-                border-color: $theme-color!important;
+                border-color: $color-text!important;
                 width: 85%;
                 transition: width 350ms ease-in-out;
                 -webkit-transition: width 350ms ease-in-out; 
-                -moz-transition: width 350ms ease-in-out; 
-
+                -moz-transition: width 350ms ease-in-out;
             }
-        }
-        
+        }   
     }
 }

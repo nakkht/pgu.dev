@@ -7,7 +7,7 @@
     margin-bottom: 55px;
     p.title {
       padding-left: 10px;
-      color: $theme-dark;
+      color: $color-text;
       font-size: 25px;
       font-weight: 600;
     }
@@ -45,9 +45,8 @@
         transform: scale(1);
 
         overflow: hidden;
-        background-color: #fff;
         border-radius: 10px;
-        box-shadow: rgba(52, 73, 94, 0.15) 0px 1px 5px;
+        border: 1px solid $color-accent-light;
         .img-wrap {
           position: relative;
           overflow: hidden;
@@ -70,9 +69,8 @@
         }
         .text-wrap {
           padding: 20px 25px;
-          // height: 180px;
           .title {
-            color: $theme-dark;
+            color: $color-text;
             font-weight: 600;
           }
           .date {
@@ -95,7 +93,7 @@
             overflow: hidden;
           }
         }
-        .icons{
+        .icons {
           margin-bottom: 20px;
           padding-right: 25px;
             float: right;
@@ -105,55 +103,27 @@
               i {
                 width: 30px;
                 height: 30px;
-                background-color: rgba(0, 0, 0, 0.07);
+                background-color: $color-text;
                 border-radius: 50%;
                 font-size: 0.8rem;
                 line-height: 1.8rem;
+                color: $color-background;
               }
             }
-            a.modal-btn i {
-              background-color: $theme-dark;
-              color: #fff;
-              font-size: 0.75rem;
+            i:hover {
+              background-color: $color-text-light;
+              color: $color-accent;
             }
         }
       }
-      .card:hover{
+      .card:hover {
         -webkit-transform: scale(1.03);
         -moz-transform: scale(1.03);
         -ms-transform: scale(1.03);
         -o-transform: scale(1.03);
         transform: scale(1.03);
-        box-shadow: rgba(52, 73, 94, 0.15) 0px 5px 15px;
-        .icons{
-          a {
-            i {
-              -webkit-transition-duration: 0.5s;
-              -moz-transition-duration: 0.5s;
-              -ms-transition-duration: 0.5s;
-              -o-transition-duration: 0.5s;
-              transition-duration: 0.5s;
-              background-color: $theme-color;
-              color: #fff;
-            }
-          }
-          a:hover {
-            i {
-              background-color: $theme-dark;
-              color: #fff;
-            }
-          }
-        }
+        box-shadow: rgba(59, 79, 88, 0.15) 0px 5px 15px;
       }
     }
-  }
-  .bg {
-    content: "";
-    z-index: -99;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    background-color: rgba(0, 0, 0, 0.05);
   }
 }

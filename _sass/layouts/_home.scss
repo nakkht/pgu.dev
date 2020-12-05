@@ -1,17 +1,17 @@
 #home {
-    #aside{
+    #aside {
         display:block;
         @media (max-width: 991px) {
            display: none;
         }
     }
-    #header-nav, #header-content, .bg{
+    #header-nav, #header-content, .bg {
         display:none;
         @media (max-width: 991px) {
            display: block;
         }
     }
-    #header-content{
+    #header-content {
         @extend %page-padding;
         margin-bottom: 30px;
         color: #fff;
@@ -24,21 +24,22 @@
         top: 105px;
         left:0%;
         height: 95px;
-        background-color: $theme-dark;
+        background: $color-background;
     }
-    #posts.col-md-8{
+    #posts.col-md-8 {
         @media (max-width: 991px) {
             min-width:100%;
-         }
+        }
     }
     #posts {
         @extend %posts-padding;
         padding: 30px 0px;
-        .post{
+        .post {
             width: 100%;
             overflow: hidden;
             padding: 10px 0px;
             .meta {
+                color: $color-text;   
                 float: left;
                 padding-right: 15px;
             }
@@ -46,7 +47,7 @@
                 display:inline-block;
                 font-weight: 600;
                 &:hover {
-                    color: $theme-color;
+                    color: $color-accent;
                     text-decoration: underline; 
                 }
             }

@@ -1,14 +1,14 @@
 #post{
     @extend %page-padding;
      padding: 0px 8%!important;
-    .post-header{
+    .post-header {
         padding-bottom : 60px;
         text-align: center;
         .title{
             margin-bottom: 0px;
         }
-        .meta{
-            color: $text-gray;
+        .meta {
+            color: $color-text;
             font-size: 0.85rem;
             margin-top: 15px;
         }
@@ -22,5 +22,8 @@
         p:last-child {
             margin-bottom: 0px;
         }
+    }
+    a:link {
+        border-bottom: 1px solid $color-accent;
     }
 }
