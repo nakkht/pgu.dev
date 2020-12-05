@@ -11,14 +11,13 @@ header {
                 line-height: 2.3rem; 
             }
             .current {
-                font-weight: 700;
                 color: $color-text;
             }
             .current::after {
                 content: " "; 
                 position: relative;
                 display: block;
-                width: 85%!important;
+                width: 90%!important;
                 bottom: 0;
                 margin: 0 auto;
                 border: 1px solid !important;
