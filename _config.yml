@@ -3,6 +3,7 @@ url: "https://pgu.dev"
 
 theme_settings:
   title: Paulius Gudonis
+  favicon : assets/favicon.ico
 
   profile:
     image: assets/img/me.jpg
