@@ -33,7 +33,7 @@ header {
             }
             .btn-nav:hover::after{
                 border-color: $color-text!important;
-                width: 85%;
+                width: 90%;
                 transition: width 350ms ease-in-out;
                 -webkit-transition: width 350ms ease-in-out; 
                 -moz-transition: width 350ms ease-in-out;
