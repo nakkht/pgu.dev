@@ -26,24 +26,79 @@ Quick recap on iOS versioning. Let's say we have the following version `0.1.0(42
 
 ### Generating build number
 
+To avoid manually increasing build number, let's automatically generate it!
 
+On iOS, the build number is a static value within `Info.plist` file. Every time it is set, `Info.plist` changes and git counts it as a change. Not ideal, as automatically generating and setting it, will cause unstaged changes in git repository. We don't want it and we definitely can do better.
 
+Apparently, xcode can dynamically generate final `Info.plist` file using preprocessor by setting `Preprocess Info.plist File` to `Yes`. After that we only need to set the `Info.plist Preprocessor Prefix File` for preprocessor to prefix `Info.plist`. That's where we can set our generated build number and Xcode will automatically generate it at build time.
 
-The build number is a key in Info.plist. If the Info.plist is a static file, there must be a new git commit every time it changes. Thus, we can’t embed the current git commit into a static Info.plist directly because we’ll have a chicken-and-egg problem (which comes first: the Info.plist with the current git commit inside, or the current git commit with the Info.plist inside?). Xcode can dynamically generate the final Info.plist file using the C preprocessor* by setting “Preprocess Info.plist File” (INFOPLIST_PREPROCESS build setting) to “YES”. We can also use the “Info.plist Preprocessor Prefix File” (INFOPLIST_PREFIX_HEADER build setting) to prepend our git commit variable (TWBundleShortVersionString) into our Info.plist. These two settings turn our Info.plist file into a template that Xcode will use to generate the final Twitch.app/Contents/Info.plist file at build time.
+This is how it looks in [onout](https://onout.com) project:
+![prefix-preprocessor](/assets/post-image/xcode-prefix-preprocessor.png){:.width-50}
 
-According to the rules above, the build number must only contain decimal numbers separated by up to two periods, but a git commit is a hexadecimal number, so we can’t use git’s $Id$ keyword expansion within Info.plist. Also, the build number must use unique with increasing numbers for each new binary we submit to iTunes Connect. Thus, every build includes the number of minutes from an epoch — which is unique and increasing — as its major build number. Then, as its minor build number, we decimalize the git commit, and prepend a “1” onto it in case it starts with a leading “0”:
+Remember to add prefix file in `.gitignore` file to prevent git tracking the changes.
 
-decimalize_git_hash.bash
+Now that we have build settings configured, let's add the scripts. 
+For this we need two scripts:
+ - Script which generates build number
+ - Script which parses build number back to git commit
+
+According to the `CFBundleVersion` documentation can only contain decimal numbers separated by up to two periods. Furthermore, the build number must use unique with increasing numbers for each `CFBundleShortVersionString`. 
+For that we can use minutes from an epoch, which is unique and increases over time, as its major build number. Then, as its minor build number, we decimalize the actual git commit.
+
+```sh
+#!/bin/sh -euo pipefail
+SECONDS_FROM_EPOCH_TO_NOW=$( date "+%s" )
+SECONDS_FROM_EPOCH_TO_DATE=$( date -j -f "%b %d %Y %T %Z" "January 1 $(date +"%G") 00:00:00 GMT" "+%s" )
+
+MINUTES_SINCE_DATE=$(( $(( ${SECONDS_FROM_EPOCH_TO_NOW}-${SECONDS_FROM_EPOCH_TO_DATE} ))/60 ))
+GIT_HASH_DECIMAL=$(printf "%d" 0x1"$(git rev-parse --short HEAD)")
+
+BUNDLE_VERSION="${MINUTES_SINCE_DATE}"."${GIT_HASH_DECIMAL}"
+
+mkdir -p "${SRCROOT}"/Plist
+touch "${SRCROOT}"/Plist/Prefix
+
+cat <<EOF > "${SRCROOT}"/Plist/Prefix
+#define BUNDLE_VERSION ${BUNDLE_VERSION}
+EOF
+```
+
+```sh
+#!/bin/sh -euo pipefail
+if [ ${#} -eq 0 ]; then
+echo "No git hash supplied"
+exit 0
+else
+BUNDLE_VERSION="${1}"
+fi
+
+POSSIBLY_DECIMAL_GIT_HASH=$( echo "${BUNDLE_VERSION}" | sed 's/[0-9][0-9]*\.\([0-9][0-9]*\)/\1/' )
+
+ALLOWED_CHARACTERS="0123456789"
+DECIMALIZED_GREP_REGEX='^['"${ALLOWED_CHARACTERS}"']['"${ALLOWED_CHARACTERS}"']*$'
+DECIMAL_GIT_HASH=$( echo "${POSSIBLY_DECIMAL_GIT_HASH}" | grep "${DECIMALIZED_GREP_REGEX}" ) || {
+echo "\"${BUNDLE_VERSION}\" doesnt look like a CFBundleVersion we expect. It should contain two dot-separated numbers." >&2
+exit 1
+}
+
+POSSIBLY_PREFIXED_GIT_HASH=$( printf "%x" ${DECIMAL_GIT_HASH} )
+
+PREFIXED_GIT_HASH=$( echo "${POSSIBLY_PREFIXED_GIT_HASH}" | grep '^1..*$' ) || {
+echo "\"${BUNDLE_VERSION}\"'s second number, \"${POSSIBLY_DECIMAL_GIT_HASH}\", is \"${POSSIBLY_PREFIXED_GIT_HASH}\" in hex, which didnt start with a \"1\"." >&2
+exit 2
+}
+
+GIT_BASH="${PREFIXED_GIT_HASH:1}"
+
+echo "${GIT_BASH}"
+```
 
 The build number can be only 18 characters long, and we must use 1 character for our period to separate our major and minor versions, so we have 17 characters remaining for data. git-rev-parse defaults to seven characters for a short revision, so if we decimalize the largest possible seven-character hexadecimal with a leading “1” (0x1fffffff) we get 536,870,911 (9 characters long), so we have 8 characters remaining for our number of minutes.
 
 It would be convenient to use the Unix epoch as our build number epoch, but 24,560,967 minutes (eight characters worth) have passed since then, so while we don’t NEED to define a new epoch, it makes me feel a little safer knowing there’s a buffer. It’s safe to define a new epoch for every version number since build numbers only need to be unique within a given version. However, 99,999,999 minutes (seven characters worth) is slightly less than 190 years, so we don’t need to update our epoch too often.
 
-minutes_since_date.bash
 
 Finally, we write our version number and build number into $SRC_ROOT/Versions/versions.h, which we prepend to Info.plist with “Info.plist Preprocessor Prefix File” (INFOPLIST_PREFIX_HEADER build setting) as mentioned above.
-
-versions.bash
 
 Our final version number looks like
 
@@ -59,23 +114,14 @@ Build Phase, Dependent Target
 We use versions.bash in an Xcode Run Script Build Phase to update $SRCROOT/Versions/versions.h (which we ignore in git) with every build. Each build number is unique as long as they are triggered at least one minute apart. Unfortunately, Xcode preprocesses Info.plist as the first step of a target (even before your target’s first Run Script Build Phase). To work around this problem, we use an Aggregate Target with only a Run Script Build Phase that runs versions.bash.
 
 
-
 Then we make our app’s target dependent on the Versions target.
-
 
 
 Final Thoughts
 
 Using Xcode’s Info.plist preprocessing and a bunch of bash, you too can have unique, incrementing, and meaningful build numbers for your apps without polluting git with a new commit just to change a version number.
 
-Warning: while “Preprocess Info.plist File” (INFOPLIST_PREPROCESS build setting) gives you the power of the C Preprocessor, you should still keep your files syntactically valid plist xml or Xcode won’t be able to render them in the Info.plist viewer or in the project general settings pane. Using the C Preprocessor only for variable substitution as described above is safe and syntactically valid plist xml.
-In response to auibrian’s comment, I clarified how we use a dependent target to run versions.bash in the Build Phase, Dependent Target section.
-
-
-
-
-
-
 Caveats:
  - Requires new version on new year
  - ensure commit is immutable (hash does not change)
+ - Part of build value is not the same if re-generated
