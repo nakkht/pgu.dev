@@ -69,13 +69,13 @@ cat <<EOF > "${SRCROOT}"/Plist/Prefix
 EOF
 ```
 
-The output of the latter script will be written to `"${SRCROOT}"/Plist/Prefix`. Remember to adjust paths to the ones you are using.
+The output of the latter script will be written to `"${SRCROOT}"/Plist/Prefix`. Remember to adjust paths to the ones you chose to use.
 
-If you feel to using smaller values for time, just change the division of Unix epoch time to the one that suits you:
+If you feel using smaller values for time, change the division of Unix epoch time to the one that suits you:
 - For hour based: `HOURS_SINCE_EPOCH=$(( $(date "+%s")/3600 ))`
 - For day based: `DAYS_SINCE_EPOCH=$(( $(date "+%s")/86400 ))`
 
-Shell script to convert our decimal back to hex value (it is able to accept full build number which was outputted by the previous shell script or just single decimalized commit values):
+Shell script to convert our decimal back to hex value (it is able to accept full build number that was outputted by the previous shell script or just single decimalized commit values):
 ```sh
 #!/bin/sh -euo pipefail
 if [ ${#} -eq 0 ]; then
@@ -108,7 +108,7 @@ echo "${GIT_BASH}"
 
 ### Integrating into Xcode build process
 
-To fully integrate script for generating build numbers, we need to add few adjustments to the project. Since Xcode pre-processes `Info.plist` as the first step of a target, we need to use an `Aggregate Target` with added `Run Script Build Phase` that runs our shell script. This is necessary as Xcode preprocesses `Info.plist` way before we can even run our script.
+To fully integrate script into Xcode for generating build numbers, we need to add few adjustments to the project. Since Xcode pre-processes `Info.plist` as the one of the earliest steps of a target, before we even allowed to run script in build phases, we need to use an `Aggregate Target` with added `Run Script Build Phase` that runs our shell script.
 
 To solve the issue, simply:
 - Add `Aggregate` target into the project
@@ -123,14 +123,29 @@ If you try to build the project and build succeeds, `Prefix` file should hold va
 
 **Important**: `BUNDLE_VERSION` (or the name you have chosen) should be added into `Info.plist` and associated to `CFBundleVersion` key.
 
+To parse build number back to commit, simply run:
+
+```sh
+parse_version.sh 26798317.466604321
+```
+Where `26798317.466604321` represents your build number
+
+To switch directly to commit, you can use the following:
+
+```
+git switch -d $(parse_version.sh 26798317.466604321)
+```
+
+The following will automatically switch git `HEAD` to parsed git commit.
+
 ### Trade-offs
 
-`git switch -d $(.scripts/parse_version.sh 18609.466604321)` can be replaces with git alias.
+As many techniques, the following has some trade-offs:
 
-- Requires new version on new year based on configuration
-- reduces clutter and does not require to tag every build upload
-- works as a global identifier - no need for marketing version 
-- marketing version can be whatever is better for the company
-- reduces error - (wrong number etc.)
-- ensure commit is immutable (hash does not change)
-- Part of build value is not the same if re-generated - parts differ.
+- Based on your configuration, major version might increase per each build, this might or might **not** be an issue for you
+- The process requires that commit is immutable - hash should never be lost/changed. This means it requires to disable ability of re-writing/deleting git history.
+
+- Since build number practically can become unique across lifetime of the app, marketing version (version that people normally see) can be whatever you want.
+- Obviously, it removes the whole need of tags for each build, making git history way more tidy.
+- Less error prone setting wrong build number.
+- Part of build value is not the same: you should never rely on the major build version as it will defer between your team or CI builds
