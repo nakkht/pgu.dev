@@ -156,14 +156,15 @@ The following will parse build number and immediately switch git `HEAD` to commi
 
 ### Trade-offs
 
-It is important to note that as many techniques, the following has some pros and cons:
+It is important to note that as many techniques, the following has some advantages/disadvantages:
 
 Cons:
 - Based on your configuration, major build version value might increase per each build as it is based on time. Depending on your setup, this may or may **not** be an issue for you.
 - The process requires that commit is immutable - hash should never be lost/changed. This means it requires to disable ability of re-write/delete git history.
 
 Pros:
-- Since build number practically can become unique across lifetime of the app, marketing version (version that people normally see) can be whatever you want.
-- Obviously, it removes the whole need of tags for each build, making git history way more tidy.
-- Less error prone setting wrong build number.
-- Part of build value is not the same: you should never rely on the major build version as it will defer between your team or CI builds
+- Obviously, it removes the whole need of tags for each build, making git history less polluted.
+- Since build number can essentially become unique across lifetime of the app, we don't have to rely on marketing version (`CFBundleShortVersionString`) at all.
+- Less error prone: no requirement of setting build number - less clumsy commits/tags.
+- Less cognitive load on 'To-Do list' before uploading builds
+- Most importantly - consistency: whether it is a single developer or dozens, the process of creating new build will stay the same.	
