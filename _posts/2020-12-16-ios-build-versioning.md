@@ -56,7 +56,7 @@ We will use `git rev-parse --short HEAD` command to get seven characters of the 
 
 For time value we can use multiple strategies based on how frequently the builds are uploaded. Using seconds based value would be overkill and would require some adjustments as more than `1607898099` seconds have already passed since Unix epoch and that's more characters than we are allowed to have. More realistic time count would be minutes/hours or even days. While using minutes, we have unique values until `18 February 2160` - equivalent to 99,999,999 minutes since Unix epoch.
 
-As a result, `version.sh` script to generate `CFBundleVersion` value from elapsed minutes since the beginning of Unix epoch will look something like this:
+`version.sh` script to generate `CFBundleVersion` value from elapsed minutes since the beginning of Unix epoch will look something like this:
 ```sh
 #!/bin/sh -euo pipefail
 
@@ -78,7 +78,7 @@ cat <<EOF > "${SRCROOT}"/Plist/Prefix
 #define BUNDLE_VERSION ${BUNDLE_VERSION}
 EOF
 ```
-**Beware**: `${SRCROOT}` is only accessible via Xcode project, thus if you are planning to use script on different platforms, consider adjusting the path.
+**Beware**: `${SRCROOT}` is only accessible via Xcode project, thus if you are planning to use script outside Xcode, consider adjusting the path.
 
 If you'd like using smaller values for time, change the division of Unix epoch time to the one that suits you:
 - For hour based (major build number will change on hourly rate): `HOURS_SINCE_EPOCH=$(( $(date "+%s")/3600 ))`
@@ -99,7 +99,7 @@ POSSIBLY_DECIMAL_GIT_HASH=$( echo "${BUNDLE_VERSION}" | sed 's/[0-9][0-9]*\.\([0
 ALLOWED_CHARACTERS="0123456789"
 DECIMALIZED_GREP_REGEX='^['"${ALLOWED_CHARACTERS}"']['"${ALLOWED_CHARACTERS}"']*$'
 DECIMAL_GIT_HASH=$( echo "${POSSIBLY_DECIMAL_GIT_HASH}" | grep "${DECIMALIZED_GREP_REGEX}" ) || {
-echo "\"${BUNDLE_VERSION}\" doesnt look like a CFBundleVersion we expect. It should contain two dot-separated numbers." >&2
+echo "\"${BUNDLE_VERSION}\" does not look like a CFBundleVersion we expect. It should contain two dot-separated numbers." >&2
 exit 1
 }
 
