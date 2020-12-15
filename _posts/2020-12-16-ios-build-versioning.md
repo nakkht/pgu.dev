@@ -142,10 +142,9 @@ If you try to build the project and build succeeds, `Prefix` file should be crea
 ![bundle-version-key](/assets/post-image/bundle-version-key.png){:.width-80}
 
 To parse build number back to commit, simply run:
-```sh
+```
 parse_version.sh 26798317.466604321
 ```
-Where `26798317.466604321` represents your build number
 
 To quickly switch directly to commit as detached head, you can use the following:
 ```
@@ -163,8 +162,8 @@ Cons:
 - The process requires that commit is immutable - hash should never be lost/changed. This means it requires to disable ability of re-write/delete git history.
 
 Pros:
-- Obviously, it removes the whole need of tags for each build, making git history less polluted.
+- Removes the whole need of tags for each build, making git history less polluted.
 - Since build number can essentially become unique across lifetime of the app, we don't have to rely on marketing version (`CFBundleShortVersionString`) at all.
-- Less error prone: no requirement of setting build number - less clumsy commits/tags.
-- Less cognitive load on 'To-Do list' before uploading builds
+- Less error prone: no requirement of setting build number manually and adding extra commit - less clumsy commits/tags.
+- Less cognitive load on 'To-Do list' before uploading builds.
 - Most importantly - consistency: whether it is a single developer or dozens, the process of creating new build will stay the same.	
