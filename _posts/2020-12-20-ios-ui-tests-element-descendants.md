@@ -58,7 +58,7 @@ app.collectionViews.buttons["Set color"].tap()
 
 Beside having different `forDuration` value it is nearly identical and running the test case on iPad works flawlessly, but running on iPhone it fails again with the same error message. Comparing both code snippets it becomes clear that the amount of `.element.children(matching: .other)` differs. In the first snippet, there are 8 `.element.children(matching: .other)` element queries (depth of 8) whereas in the second snippet there are 9 `.element.children(matching: .other)` element queries (depth of 9). This means that UI hierarchy is generated differently on iPhone and iPad causing element depth change.
 
-Immediate idea for a solution was to include a check to differentiate whether the test is running on iPad or iPhone by using `UIDevice.current.userInterfaceIdiom`. It solved the issue, however, it felt like a cheap and dirty workaround. There has to be a versatile and more elegant solution.
+Immediate idea for a solution was to include a check to differentiate whether the test is running on iPad or iPhone by using `UIDevice.current.userInterfaceIdiom`. It solved the issue, however, it felt like a cheap and dirty workaround. There has to be a more versatile and elegant solution.
 
 Since I was not fully familiar with `XCUIElementQuery` I started searching for more information about it and looking through documentation. After some time of reading, the answer was right in front of me all along. Looking at [children(matching:)](https://developer.apple.com/documentation/xctest/xcuielementquery/1501006-children) discussion notes, it becomes clear:
 
@@ -72,9 +72,9 @@ app.windows.element.buttons["tile-button"].firstMatch.press(forDuration: 2.0)
 app.collectionViews.buttons["Set color"].tap()
 ```
 
-The latter test case snippet not only got significantly simplified, it also works on both iPhone and iPad.
+The latter test case code snippet not only got significantly simplified, it also works on both iPhone and iPad.
 ![ipad-onout-ui-test](/assets/post/ipad-onout-ui-test.gif)
 
-Initially, my taken approach was naive. One should not expect Xcode to generate device agnostic UI test cases by simply recording interaction with the app on specific device. Xcode generated UI test case code shall be used only as a baseline for writing test cases yourself. To take full advantage of UI testing the key points are:
-- Take advantage of `XCUIElementQuery` - it is a really powerful and useful API to have under the belt 
+Initially, my taken approach was naive. One may not expect Xcode to generate device agnostic UI test cases by simply recording interaction with the app on specific device. Xcode generated UI test case code should be used only as a baseline for writing test cases yourself. To take full advantage of UI testing the key points are:
+- Learn `XCUIElementQuery` - it is a really powerful and useful API to have under the belt
 - Understand and utilize accessibility API - UI tests are heavily based on finding/interacting with UI elements by using accessibility API, e.g. `accessibilityIdentifier` to find correct elements on the screen. Moreover, it will be vital if you decide to make your app more usable for people who have an impairment of some kind which makes it more difficult to use their device.
