@@ -15,14 +15,14 @@ While developing [onout](https://onout.com), I frequently upload new builds to T
 In general, it is common to tag the version/build which is being uploaded to the App Store. In iOS case, the version would look similar to this: `v0.1.0(1)`, `v0.1.0(2)`, etc. However, in situations, when there are frequent build uploads, tags will litter git history and make it harder to follow. Furthermore, we are interested in tagging the actual release that reaches the public, like `v0.1.0`, `v0.2.0`, etc.
 
 How often do you see git history with the following scenario repeating over and over again:
-![git-build-tag](/assets/post-image/git-build-tag.png){:.width-50}
+![git-build-tag](/assets/post/git-build-tag.png){:.width-50}
 Release is tagged with specific build version, but the actual commit does not contain claimed change set. Subsequent commit is created to resolve mistake. This does not bring confidence in release management.
 
 ### Version overview
 
 Before we look deeper into an automated solution, let us quickly recap how iOS versioning works. Let's say we have the following version `0.1.0(42)`, here **0.1.0** represents `CFBundleShortVersionString` and **42** - `CFBundleVersion`
  - [CFBundleShortVersionString](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-111349) - specifies the release version number of the bundle, which identifies a released iteration of the app. E.g.: `1.0.0`, `1.4.2` - version which is normally seen by the end-user. Must be in ascending sequential order for each release. Referred as `MARKETING_VERION` within Xcode build settings:
-![marketing-version-build-setting](/assets/post-image/build-settings-marketing-version.jpeg){:.width-80}
+![marketing-version-build-setting](/assets/post/build-settings-marketing-version.jpeg){:.width-80}
 
  - [CFBundleVersion](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102364) - specifies the build version number of the bundle, which identifies an iteration (released or unreleased) of the bundle. It must be in ascending sequential order and unique **only** per each `CFBundleShortVersionString` value. The build number not necessarily has to be a single digit. In fact, it can follow semantic versioning the same as `CFBundleShortVersionString`, thus values as such are valid: `1.0.0`, `1.0.1`, etc.
 
@@ -35,7 +35,7 @@ On iOS, the build number is a static value within `Info.plist` file. Every time 
 Apparently, Xcode can dynamically generate final `Info.plist` file using preprocessor by setting `Preprocess Info.plist File` to `Yes`. After that we only need to set the `Info.plist Preprocessor Prefix File` for preprocessor to prefix `Info.plist` with. That's where we can set our generated build number and Xcode will include it in `Info.plist` file.
 
 This is how it looks in [onout](https://onout.com) project:
-![prefix-preprocessor](/assets/post-image/xcode-prefix-preprocessor.png){:.width-50}
+![prefix-preprocessor](/assets/post/xcode-prefix-preprocessor.png){:.width-50}
 
 Remember to add prefix file (in my case `Plist/` folder) in `.gitignore` file to prevent git tracking the file.
 
@@ -122,15 +122,15 @@ To fully integrate `version.sh` script into Xcode for generating build version, 
 To solve the issue, simply:
 - Add `Aggregate` target into the project (in my case, it is named `Version`)
 
-![aggregate-target](/assets/post-image/aggregate-target.png){:.width-20}
+![aggregate-target](/assets/post/aggregate-target.png){:.width-20}
 
 - In `Aggregate`, target under `Build Phases`, add `New Run Script phase` pointing to the script:
 
-![aggregate-target-run-script](/assets/post-image/aggregate-target-run-script.png){:.width-80}
+![aggregate-target-run-script](/assets/post/aggregate-target-run-script.png){:.width-80}
 
 - Finally, in your product target, under `Build Phases` -> `Dependencies`, include `Aggregate` target which you created previously. This will allow to execute dependency target's scripts way before product target.
 
-![aggregate-dependency](/assets/post-image/aggregate-dependency.png){:.width-80}
+![aggregate-dependency](/assets/post/aggregate-dependency.png){:.width-80}
 
 If you try to build the project and build succeeds, `Prefix` file should be created and hold values similar to this:
 
@@ -139,7 +139,7 @@ If you try to build the project and build succeeds, `Prefix` file should be crea
 ``` 
 
 **Important**: `BUNDLE_VERSION` should be added into `Info.plist` and associated to `CFBundleVersion` key as such:
-![bundle-version-key](/assets/post-image/bundle-version-key.png){:.width-80}
+![bundle-version-key](/assets/post/bundle-version-key.png){:.width-80}
 
 To parse build number back to commit, simply run:
 ```
