@@ -25,7 +25,7 @@ app.collectionViews.buttons["Set color"].tap()
 ```
 
 Seems pretty straightforward, running the test case on iPhone yields expected flow:
-![iphone-12-onout-ui-test](/assets/post/iphone-12-onout-ui-test.mov){:.width-40}
+![iphone-12-onout-ui-test](/assets/post/iphone-12-onout-ui-test.mp4){:.width-40}
 
 Unfortunately, running the same test case on iPad fails. Specifically, on line:
 ```swift
@@ -73,7 +73,7 @@ app.collectionViews.buttons["Set color"].tap()
 ```
 
 The latter test case snippet not only got significantly simplified, it also works on both iPhone and iPad.
-![ipad-onout-ui-test](/assets/post/ipad-onout-ui-test.mov)
+![ipad-onout-ui-test](/assets/post/ipad-onout-ui-test.mp4)
 
 Initially, my taken approach was naive. One should not expect Xcode to generate device agnostic UI test cases by simply recording interaction with the app on specific device. Xcode generated UI test case code shall be used only as a baseline for writing test cases yourself. To take full advantage of UI testing the key points are:
 - Take advantage of `XCUIElementQuery` - it is a really powerful and useful API to have under the belt 
