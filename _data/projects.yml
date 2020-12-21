@@ -31,5 +31,5 @@
 - project:
     print: true
     url: https://github.com/nakkht/usbtkit
-    title: UsbtKit
+    title: USBTKit
     description: Swift library to allow data transmission over USB on iOS
