@@ -12,8 +12,8 @@
 
 - project:
     print: true
-    url: https://github.com/nakkht/rust-gpx-cli
-    title: GPX cli
+    url: https://github.com/nakkht/rs-gpx-cli
+    title: rs-gpx
     description: CLI tool for generating and manipulating gpx files written in Rust
 
 - project:
