@@ -10,4 +10,4 @@ I guess it is time. Consider this a "Hello, World!".
 
 The intention is to write anything related to Android (Java/Kotlin), iOS (Swift) and perhaps soon - Rust. 
 Honestly, anything that I might find interesting in the tech world.
-Meanwhile, random everyday thoughts will appear on <a href="https://twitter.com/nakkht">Twitter</a>.
+Meanwhile, random everyday thoughts will appear on [Twitter](https://twitter.com/nakkht).
