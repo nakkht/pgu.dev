@@ -11,26 +11,34 @@ theme_settings:
     description: Software Engineer
 
     skills: 
-        - skill: Android / iOS, Java, Kotlin, Swift, Objective-C, Python, Go, Rust, C#, Git, ASP.NET Core, Docker
-        - skill: MVP, MVVM-C, MVC, Git flow, Unit testing, Continuous Integration / Delivery
+      - skill: Android / iOS, Java, Kotlin, Swift, Objective-C, Python, Go, Rust, C#, Git, ASP.NET Core, Docker
+      - skill: MVP, MVVM-C, MVC, Git flow, Unit testing, Continuous Integration / Delivery
 
     experience:
 
-        - start: 2019-06
-          end: Present
-          experience: Saphe A/S, App Developer
+      - start: 2021-04
+        end: Present
+        experience: Emplate ApS, iOS Developer
 
-        - start: 2018-10
-          end: Present
-          experience: neqsoft, Owner/Freelancer
+      - start: 2019-06
+        end: 2021-04
+        experience: Saphe A/S, App Developer
 
-        - start: 2016-01
-          end: 2019-05
-          experience: Medei ApS, Lead Software Developer
+      - start: 2019-06
+        end: Present
+        experience: Saphe A/S, App Developer
 
-        - start: 2014-11
-          end: 2015-10
-          experience: Internet Chess Club, Software Developer
+      - start: 2018-10
+        end: Present
+        experience: neqsoft, Owner/Freelancer
+
+      - start: 2016-01
+        end: 2019-05
+        experience: Medei ApS, Lead Software Developer
+
+      - start: 2014-11
+        end: 2015-10
+        experience: Internet Chess Club, Software Developer
      
   icons:
     email: pg@neqsoft.com
