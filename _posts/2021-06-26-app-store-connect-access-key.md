@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "iOS: using App Store Connect API in fastlane"
+title: "iOS: using App Store Connect API with fastlane"
 author: Paulius Gudonis
 ---
 
