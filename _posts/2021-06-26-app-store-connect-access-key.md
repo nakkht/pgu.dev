@@ -33,27 +33,27 @@ hPRRCDBE
 
 As it says, it is a private key, so keep it in a secure and safe place. The part between the `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----` is a `base64` formatted `ASN.1 PKCS#8` representation of the key itself.
  
-Since we already have all the API key materials (you should also be able to see `KEY ID` and `Issuer ID` on the same page), let's integrate those into fastlane workflow to upload iOS build to App Store.
+You should be able to see `Key ID` and `Issuer ID` on the same page `Keys` tab page. Since we have all the API key materials, let's integrate those into fastlane workflow to upload iOS build to App Store.
 
 There are few ways you might want to introduce API key into your project:
 * Using global environment variables set in your `.zshenv` or `.bash_profile` (could be useful if you share keys among multiple projects on your machine)
+* Setting values straight in `app_store_connect_api_key` action (this will end up in repository and can be a security hazard)
 * Using `.env` file in `fastlane` folder (this makes variables accessible only to particular project. It is important to add `.env` file to `.gitignore` so it does not end up in repository)
-* Setting values straight in `app_store_connect_api_key` action
 
-Personally, I prefer to use `.env` file in `fastlane` folder as it isolates the key to the project and is less likely to leak in some unrelated logs. Running the following fastlane command: `fastlane action app_store_connect_api_key` shows us documentation and which fastlane environment variables represent which keys: ![app_store_connect_api_key documentation](/assets/post/app-store-connect-api-key-content.png)
+Personally, I prefer to use `.env` file as it isolates the key to a single project and is less likely to leak in some unrelated logs. Running the following fastlane command: `fastlane action app_store_connect_api_key` shows us documentation and which fastlane environment variables represent which keys: ![app_store_connect_api_key documentation](/assets/post/app-store-connect-api-key-content.png)
 So far, we are interested in the following environment variables: 
 * `APP_STORE_CONNECT_API_KEY_KEY_ID`
 * `APP_STORE_CONNECT_API_KEY_ISSUER_ID`
 * `APP_STORE_CONNECT_API_KEY_KEY`
 * `APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64`
 
-The reasons we are interested in setting `APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64` is due to the fact that `.p8` file content is multi-line. This will cause issues as value content in new lines will be missed. Thus, we are going to encode `.p8` content using `base64`. By simply running `cat key.p8 | base64` in terminal we will get nice single line value which we can use. Example `base64` value for the key content shown earlier:
+The reasons we are interested in setting `APP_STORE_CONNECT_API_KEY_IS_KEY_CONTENT_BASE64` is due to the fact that `.p8` file content is multi-line. This will cause issues as value content in new lines will be missed. Thus, we are going to encode all `.p8` content using `base64`. By simply running `cat key.p8 | base64` in terminal we will get nice single line value which we can use. Example `base64` value for the key content shown earlier:
 
 ```javascript
 LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JR1RBZ0VBTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEJIa3dkd0lCQVFRZ3FEVkF1UEVITHNQenFhSzYKaVpsR3N1MnY1eEZzVERTTUF6eWJvSnhDbkhLZ0NnWUlLb1pJemowREFRZWhSQU5DQUFUd0t2Ym5va2l0SnNaSQpkMVRWSFhvdytCQXNMTDJ2d1NBK0lwSG50YW85V05DVjZ1dlhMNWZ3am9kUk9nQ05PNm10YnVWZ3h2QUJPMDJMCkxlc0VYaEpjCi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0=
 ```
 
-So, based on values we have, we can create `.env` file in fastlane folder with the following key/value pairs:
+Based on values we have, we can create `.env` file in fastlane folder with the following key/value pairs:
 
 ```javascript
 APP_STORE_CONNECT_API_KEY_KEY_ID="key id value"
@@ -72,4 +72,4 @@ lane :upload do
 end
 ```
 
-As long as API keys are set in the environment, the execution of the script will require no Apple ID or 2 step verification. This sets a strong precedence for automating more tasks which require communication with App Store Connect API, especially when the team size increases or other environments such as CI are introduced.
+As long as API keys are set in the environment, the execution of the script will require no Apple ID or 2 step verification. This sets a strong precedence for automating more tasks which require communication with App Store Connect API. Especially when more people in the team start use the scripts or other environments, such as CI, are introduced.
