@@ -15,13 +15,13 @@ theme_settings:
       - skill: MVP, MVVM-C, MVC, Git flow, Unit testing, Continuous Integration / Delivery
 
     experience:
-      - start: 2021-04
-        end: Present
-        experience: Emplate ApS, iOS Developer
-
       - start: 2018-10
         end: Present
         experience: neqsoft, Owner/Freelancer
+
+      - start: 2021-04
+        end: 2021-06
+        experience: Emplate ApS, iOS Developer
 
       - start: 2019-06
         end: 2021-04
