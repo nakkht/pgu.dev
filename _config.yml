@@ -8,7 +8,7 @@ theme_settings:
   profile:
     image: assets/img/me.jpg
     username: Paulius Gudonis
-    description: Software Engineer
+    description: Software Developer
 
     skills: 
       - skill: Android / iOS, Java, Kotlin, Swift, Objective-C, Python, Go, Rust, C#, Git, ASP.NET Core, Docker
