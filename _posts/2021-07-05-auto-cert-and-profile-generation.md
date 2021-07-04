@@ -48,6 +48,6 @@ end
 > **Note**: If your storage mode set to `git`, you will need to create a passphrase which will be used to encrypt/decrypt files. It will be installed in your private `keychain`. It is important to remember the password and keep it somewhere safe. If for some reason you lost the passphrase, you will need to revoke old certificates/profiles and generate new ones.
 
 If `match` command succeeded, your App Store cert repository should have content similar to this: ![fastlane match repo](/assets/post/fastlane-match-repo.png){:.width-80}
-The reason I believe git repository is a good option for storing certificates is purely for historical purposes, it is easy to see who and when created certificates.
+The reason why one might prefer git repository over other storage options is purely for historical purposes: it is easy to see who and when create/renewed certificates and profiles.
 
-And that's all there's to it. No need to login to App Store developer account manually to generate and download certificates and less likely for someone revoke certificates by accident when more people join your team. In addition, if you need to share signing certificates with someone, simply share access to repository and decryption key which was used to encrypt files.
+And that's all there's to it. No need to login to App Store developer account manually anymore to generate and download certificates and smaller possibility for someone revoke certificates by accident when more people join your team. In addition, if you need to share signing certificates with someone, simply share access to repository and decryption key which was used to encrypt files.
