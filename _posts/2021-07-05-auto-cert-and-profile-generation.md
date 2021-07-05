@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "iOS: automate cert and profile creation using fastlane"
+title: "iOS: automate certificate and profile creation using fastlane"
 author: Paulius Gudonis
 ---
 
