@@ -4,14 +4,12 @@
   <nav>
     <ul>
       {% case current[0] %}
-      <!-- portfolio -->
       {% when 'portfolio'%}
       <a href="{{ site.url }}">
         <li class="btn-nav">Blog</li>
       </a>
       <li class="current">Portfolio</li>
       {% else %}
-      <!-- others -->
       <a href="{{ site.url }}">
         <li class="current btn-nav">Blog</li>
       </a>
