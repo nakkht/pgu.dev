@@ -5,10 +5,10 @@ author: Paulius Gudonis
 ---
 
 In previous posts I have covered [how to set up and use access key with App Store API]({% post_url 2021-06-26-app-store-connect-access-key %}) and later [how to automatically generate certificate and profiles using the access key]({% post_url 2021-07-05-auto-cert-and-profile-generation %}). Let's crank it up to 11 and have automated app uploads to App Store using GitHub Actions so we never ever have to see Xcode's archiving steps again. For this to work, 2 tasks need to be done (given [fastlane](https://fastlane.tools) is available):
-* Create fastlane lane with release flow
+* Create fastlane action with release flow
 * Create GitHub workflow based on preferred events
 
-For the first task, the following lane is added to `Fastfile`:
+For the first task, the following action is added to `Fastfile`:
 
 ```ruby
 app_store_connect_api_key
@@ -25,13 +25,13 @@ end
 
 First, `setup_ci` needs to be called to setup temporary keychain to ensure `sync_certs` works correctly on any CI provider. To prevent `setup_ci` from running locally, in case it is triggered on your local machine, `is_ci` check is required.
 
-`sync_certs` function comes from [iOS: automate certificate and profile creation using fastlane]({% post_url 2021-07-05-auto-cert-and-profile-generation %}) post. Essentially, it can be replaced with fastlane's `match` action directly. It will ensure that certificates and profiles are downloaded and installed on CI build machine's keychain for later signing.
+`sync_certs` function comes from [iOS: automate certificate and profile creation using fastlane]({% post_url 2021-07-05-auto-cert-and-profile-generation %}) post. Essentially, it can be replaced with fastlane's `match` action directly. It will ensure that certificates and profiles are downloaded and installed on CI machine's keychain for later signing.
 
-`build_app` and `upload_to_testflight` lanes most likely look familiar to you. It simply builds and signs app and uploads generated `.ipa` file using `upload_to_testflight` lane to the App Store. Refer to [fastlane docs](https://docs.fastlane.tools) for more information about available lanes and possible arguments for further possible configurations.
+`build_app` and `upload_to_testflight` actions most likely look familiar to you. It simply builds, signs and uploads generated `.ipa` file to the App Store. Refer to [fastlane docs](https://docs.fastlane.tools) for more information about available lanes and possible arguments for further possible configurations.
 
-> **Note**: Remember to add `app_store_connect_api_key` to `Fastfile`. This will ensure App Store API keys are correctly loaded before executing `release` lane.
+> **Note**: Remember to add `app_store_connect_api_key` to `Fastfile`. This will ensure App Store API keys are correctly loaded before executing `release` action.
 
-For the GitHub workflow, the following is added under `.github/workflows` directory in your repository:
+For the GitHub workflow, the following `.yml` file is added under `.github/workflows` directory:
 
 ```yml
 name: Upload build to App Store
@@ -41,7 +41,7 @@ on:
 
 jobs:
   upload-build:
-    runs-on: macos-11
+    runs-on: macos-latest
     env:{% raw %}
       APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
       APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
@@ -57,13 +57,13 @@ jobs:
 ```
 
 3 important parts:
-* `on` trigger. In this case, `workflow_dispatch` is used which is part of manual events and can be triggered via GitHub API or via GitHub web interface. However, there are different options as well which can suit your needs better, such as recurring weekly builds. Take a look at [GitHub documentation](https://docs.github.com/en/actions/reference/events-that-trigger-workflows).
-* `env` values. These values are important and have to be configured similarly to values used in `.env` file in [earlier post on access keys]({% post_url 2021-06-26-app-store-connect-access-key %}). There are few additional values - `MATCH_PASSWORD` and `MATCH_GIT_BASIC_AUTHORIZATION`:
+* `on` trigger. In this case, `workflow_dispatch` is used which is part of manual events and can be triggered via GitHub API or via GitHub web interface. However, there are different options as well which can suit your needs better, such as recurring weekly builds. Have a look at [GitHub documentation](https://docs.github.com/en/actions/reference/events-that-trigger-workflows).
+* `env` values. These values are important and have to be configured similarly to values used in `.env` file as in [earlier post on access keys]({% post_url 2021-06-26-app-store-connect-access-key %}). There are few additional values - `MATCH_PASSWORD` and `MATCH_GIT_BASIC_AUTHORIZATION`:
   * `MATCH_PASSWORD` - secret value used by fastlane match to encrypt/decrypt certificates and profiles within private remote repository.
   * `MATCH_GIT_BASIC_AUTHORIZATION` - access token which fastlane match will use to download certificates from private remote repository. It can be generated by accessing `Personal access tokens` [page](https://github.com/settings/tokens) on GitHub. At minimum `repo` scope has to be granted to allow access to private repositories.
 
-  All of the actual secrets must be added to `Repository secrets` which is under `Settings` -> `Secrets`.
-  > **Note**: Environment keys need to be exactly as shown in workflow file. These keys are directly used by fastlane to load values. For more information, refer to fastlane's [match action documentation](https://docs.fastlane.tools/actions/match/)
-* `steps` section. It simply contains 2 actions - checkout the code and trigger fastlane action that was created.
+  All of the actual secrets must be added to `Repository secrets` which is under `Settings` -> `Secrets`
+  > **Note**: Environment keys under `env` section in `.yml` file need to be exactly as shown above. These keys are directly used by fastlane to load values. For more information, refer to fastlane's [match action documentation](https://docs.fastlane.tools/actions/match/)
+* `steps` section. It simply contains 2 steps - checkout the code and trigger fastlane action that was created previously. This can be extended with more steps, e.g. to notify others about new builds.
 
-And voilà, if done correctly, you should be able to upload builds from GitHub Actions based on rules you set. 
+And voilà, if done correctly, you should be able to automatically and consistently upload iOS builds to App Store using GitHub Actions.
