@@ -15,13 +15,13 @@ theme_settings:
       - skill: MVP, MVVM-C, MVC, Git flow, Unit testing, Continuous Integration / Delivery
 
     experience:
-      - start: 2021-06
-        end: Present
-        experience: NewMotion, iOS Developer
-
       - start: 2018-10
         end: Present
         experience: neqsoft, Owner/Freelancer
+
+      - start: 2021-06
+        end: 2021-09
+        experience: NewMotion, iOS Developer
 
       - start: 2021-04
         end: 2021-06
